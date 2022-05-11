@@ -1,0 +1,14 @@
+.usuario{
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.usuario .dat{
+    margin-left: 15px;
+}
+
+.hidden{
+    display: none;
+}
+
+
