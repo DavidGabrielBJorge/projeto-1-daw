@@ -3,15 +3,20 @@ const db=require("./../configs/sequelize")
 const Proprietario = require("./model")
 
 exports.create = (req, res) => {
+    console.log("===============Entrando no Create proprietario===============");
+
     this.createDefault(req.body.Nome, req.body.Cpf, req.body.Telefone).then(proprietario => {
         console.log("req.body.nome= "+req.body.Nome)
         res.send(proprietario)
+
+        console.log("===============Saindo no Create proprietario===============");    
     })
  }
  
  exports.createDefault = async (nome, cpf, telefone) =>{
  
      try{
+        console.log("===============Entrando no Create Default proprietario===============");
          let proprietario = await findByFullName(nome);
  
          if(proprietario){
@@ -23,14 +28,14 @@ exports.create = (req, res) => {
                 Cpf : cpf,
                 Telefone : telefone
 
-         
              })
+           
          }
  
      }catch(err){
          console.log("Erro " + err)
      }
-     
+     console.log("===============Saindo no Create Default proprietario===============");
  }
      
  

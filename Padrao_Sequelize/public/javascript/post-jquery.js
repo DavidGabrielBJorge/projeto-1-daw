@@ -167,13 +167,19 @@ $(document).ready(() => {
 Imoveis={
     add: () =>{
 
-        console.log("Entrou no add dos imoveis");
+        console.log("====================================Entrou no add dos imoveis====================================");
 
         var t = {};
         t.endereco = $("#endereco").val();
         t.Nome = $("#Nome").val();
         t.Cpf = $("#Cpf").val();
         t.Telefone = $("#Telefone").val();
+
+
+        console.log("t.endereco= "+ t.endereco);
+        console.log("t.Nome= "+ t.Nome);
+        console.log("t.Cpf= "+ t.Cpf);
+        console.log("t.Telefone= "+ t.Telefone);
 
         $.ajax({
             type : 'POST',
@@ -189,14 +195,23 @@ Imoveis={
     },
     template : (data) => {
 
+        console.log("====================================Entrou no template====================================");
+
         var comment = $('<div></div>')
         .attr('id','comment-'+data.id)
         .attr('class','comment');
+
+        console.log("data.id: "+data.id);
+        
 
         var endereco = $('<textarea></textarea>')
         .attr('class','endereco')
         .attr('disabled',true)
         .html(data.endereco);
+
+        console.log("data.endereco: "+data.endereco);
+
+        console.log("data.Nome: "+data.proprietario.Nome);
 
         var proprietario = $('<p></p>')
         .attr('class','proprietario')

@@ -12,7 +12,7 @@ exports.create = async (req, res) => {
         
     let proprietario = await ProprietarioController.createDefault(req.body.Nome, req.body.Cpf, req.body.Telefone);
 
-    console.log("===============Entrando no Create===============");
+    console.log("===============Entrando no Create imovel===============");
     console.log("req.body.Nome: "+req.body.Nome);
     console.log("req.body.Cpf: "+req.body.Cpf);
     console.log("req.body.Telefone: "+req.body.Telefone);
@@ -28,26 +28,28 @@ exports.create = async (req, res) => {
         }]
       }
       )
-      console.log(proprietarioId);
+    
 
     await imovel.reload();
 
     
     res.json(imovel);
-
+    console.log("===============Saindo no Create imovel===============");
     }catch(err){
         res.status(status.INTERNAL_SERVER_ERROR);
         console.log(err)
     }
+
 }
 
 exports.findAll = (req, res) => {
-
+    console.log("===============Entrando no findAll imovel===============");
     //{include:Usuario,where : {content : {[Op.iLike] : '%' + req.query.content + '%' }}, order:['createdAt']}
     Imovel.findAll({include:Proprietario,where : {endereco : {[Op.iLike] : '%' + req.query.endereco + '%' }}, order:['createdAt']}).then(imoveis => {
        console.log(imoveis);
        
         res.send(imoveis);
+    console.log("===============Saindo no findAll imovel===============");
     })
 }
 
