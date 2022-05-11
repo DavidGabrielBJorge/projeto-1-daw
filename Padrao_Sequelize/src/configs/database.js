@@ -1,8 +1,8 @@
 module.exports ={
     username:'postgres',
-    password:'admwindows',
+    password:'admin',
     database:'aula1',
     host:'localhost',
     dialect:'postgres',
-    port:5433
+    port:5432
 }

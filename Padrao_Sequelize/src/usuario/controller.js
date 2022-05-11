@@ -1,5 +1,5 @@
 const { username } = require("../configs/database")
-const db=require("./../configs/sequelize")
+const db=require("../configs/sequelize")
 const Usuario = require("./model")
 
 exports.create = (req, res) => {

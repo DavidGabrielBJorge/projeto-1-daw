@@ -8,12 +8,14 @@ app.use(bodyParser.urlencoded({extended: true}))
 
 app.use(express.static('public'))
 
-db.sequelize.sync({alter: true}).then(()=>{
+db.sequelize.sync({force: true}).then(()=>{
     console.log("Deu certo a criação do banco")
 })
 
 require('./src/usuario/routes')(app)
 require('./src/post/routes')(app)
+require('./src/proprietario/routes')(app)
+require('./src/imovel/routes')(app)
 
 app.get("/",(req,res)=>{
     res.sendFile(__dirname+"/public/view/index.html")
