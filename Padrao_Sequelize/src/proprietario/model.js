@@ -13,14 +13,14 @@ Proprietario.init({
         primaryKey: true
     },
 
-    nome:{
+    Nome:{
         type: DataTypes.STRING
    
     },
-    cpf:{
+    Cpf:{
         type: DataTypes.STRING
     },
-    telefone:{
+    Telefone:{
         type: DataTypes.BIGINT
     }
 },{sequelize, modelName : "proprietarios"})

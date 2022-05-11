@@ -9,7 +9,7 @@ module.exports = (app) =>{
 
        //atualiza um post
        app.put('/post',controller.update);
-
+    
        //remove um post
        app.delete('/post',controller.remove)
 }

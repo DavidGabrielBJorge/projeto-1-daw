@@ -11,22 +11,42 @@
 
     <body>
 
+<!--
+APAGAR ESSE COMENTARIO PARA FAZER FUNCIONAR O POST E O USUARIO
         <form id="search">
             <input id="content-search" type="text" name="content-search" value=""/>
             <input type="button" value ="Buscar" onclick="Posts.findAll()"/>
 
         </form>
-            
-            
+-->          
+        <form id="search">
+            <input id="endereco-search" type="text" name="endereco-search" value=""/>
+            <input type="button" value ="Buscar" onclick="Imoveis.findAll()"/>
+
+        </form>
+
         <h1>Poste aqui seu comentário</h1>
 
-        <form>
+<!--  
+APAGAR ESSE COMENTARIO PARA FAZER FUNCIONAR O POST E O USUARIO
+           <form>
             <textarea type="text" id="content" name="content" value="" rows="10" cols="100"></textarea>
             <br/>
             <input type="text" id="firstName" name="firstName" value="">
             <input type="text" id="lastName" name="lastName" value=""/>
             <input type="button" value="Enviar" onclick="Posts.add();"/>
-        </form>
+        </form> 
+-->
+
+            <form>
+                <textarea type="text" id="endereco" name="endereco" value="" rows="10" cols="100"></textarea>
+                <br/>
+                <input type="text" id="Nome" name="Nome" value="">
+                <input type="text" id="Cpf" name="Cpf" value=""/>
+                <input type="text" id="Telefone" name="Telefone" value=""/>
+
+                <input type="button" value="Enviar" onclick="Imoveis.add();"/>
+            </form> 
         
         <section>
             <h2>Comentário</h2>
