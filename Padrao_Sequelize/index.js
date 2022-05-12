@@ -12,8 +12,7 @@ db.sequelize.sync({force: true}).then(()=>{
     console.log("Deu certo a criação do banco")
 })
 
-require('./src/usuario/routes')(app)
-require('./src/post/routes')(app)
+
 require('./src/proprietario/routes')(app)
 require('./src/imovel/routes')(app)
 

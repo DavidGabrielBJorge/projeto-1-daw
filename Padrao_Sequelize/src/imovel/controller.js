@@ -44,7 +44,6 @@ exports.create = async (req, res) => {
 
 exports.findAll = (req, res) => {
     console.log("===============Entrando no findAll imovel===============");
-    //{include:Usuario,where : {content : {[Op.iLike] : '%' + req.query.content + '%' }}, order:['createdAt']}
     Imovel.findAll({include:Proprietario,where : {endereco : {[Op.iLike] : '%' + req.query.endereco + '%' }}, order:['createdAt']}).then(imoveis => {
        console.log(imoveis);
        
@@ -53,7 +52,6 @@ exports.findAll = (req, res) => {
     })
 }
 
-//select * from posts where content like '%%'
 
 exports.update =(req,res)=>{
     Imovel.update(
