@@ -79,7 +79,6 @@ Imoveis={
             Imoveis.remove(event.target);
         })
 
-        $(usuario).append(date);
 
         $(comment).append(endereco);
         $(comment).append(proprietario);

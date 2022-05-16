@@ -19,7 +19,7 @@ exports.create = async (req, res) => {
     
     let imovel = await Imovel.create({
         endereco : req.body.endereco,
-        proprietarioId : proprietario.Id
+        proprietarioId : proprietario.id
         
     },
     {
