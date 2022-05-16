@@ -17,10 +17,10 @@ Proprietario.init({
         type: DataTypes.STRING
    
     },
-    Cpf:{
+    cpf:{
         type: DataTypes.STRING
     },
-    Telefone:{
+    telefone:{
         type: DataTypes.BIGINT
     }
 },{sequelize, modelName : "proprietarios"})

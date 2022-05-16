@@ -10,14 +10,16 @@ exports.create = async (req, res) => {
 
     try{
         
-    let proprietario = await ProprietarioController.createDefault(req.body.Nome, req.body.Cpf, req.body.Telefone);
+    let proprietario = await ProprietarioController.createDefault(req.body.Nome, req.body.cpf, req.body.telefone, req.body.valor);
 
     console.log("===============Entrando no Create imovel===============");
     console.log("req.body.Nome: "+req.body.Nome);
-    console.log("req.body.Cpf: "+req.body.Cpf);
-    console.log("req.body.Telefone: "+req.body.Telefone);
+    console.log("req.body.cpf: "+req.body.cpf);
+    console.log("req.body.telefone: "+req.body.telefone);
+    console.log("req.body.telefone: "+req.body.valor);
     
     let imovel = await Imovel.create({
+        valor: req.body.valor,
         endereco : req.body.endereco,
         proprietarioId : proprietario.id
         
@@ -56,7 +58,8 @@ exports.findAll = (req, res) => {
 exports.update =(req,res)=>{
     Imovel.update(
         {
-            endereco: req.body.endereco 
+            endereco: req.body.endereco,
+            valor: req.body.valor
         },
         {
             where : {

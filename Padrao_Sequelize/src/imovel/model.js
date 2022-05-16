@@ -18,6 +18,9 @@ Imovel.init({
     endereco:{
         type: DataTypes.STRING
 
+    },
+    valor:{
+        type: DataTypes.DOUBLE
     }
 },{sequelize, modelName : "imoveis"})
 

@@ -6,14 +6,15 @@ Imoveis={
         var t = {};
         t.endereco = $("#endereco").val();
         t.Nome = $("#Nome").val();
-        t.Cpf = $("#Cpf").val();
-        t.Telefone = $("#Telefone").val();
-
+        t.cpf = $("#cpf").val();
+        t.telefone = $("#telefone").val();
+        t.valor=$("#valor").val();
 
         console.log("t.endereco= "+ t.endereco);
         console.log("t.Nome= "+ t.Nome);
-        console.log("t.Cpf= "+ t.Cpf);
-        console.log("t.Telefone= "+ t.Telefone);
+        console.log("t.cpf= "+ t.cpf);
+        console.log("t.telefone= "+ t.telefone);
+        console.log("t.telefone= "+ t.valor);
 
         $.ajax({
             type : 'POST',
@@ -43,13 +44,18 @@ Imoveis={
         .attr('disabled',true)
         .html(data.endereco);
 
+        var valor = $('<textarea></textarea>')
+        .attr('class','valor')
+        .attr('disabled',true)
+        .html(data.valor);
+
         console.log("data.endereco: "+data.endereco);
         console.log("data.proprietario: "+data.proprietario);
         console.log("data.Nome: "+data.proprietario.Nome);
 
         var proprietario = $('<p></p>')
         .attr('class','proprietario')
-        .html('Por '+data.proprietario.Nome + " CPF: "+data.proprietario.Cpf+" Telefone: " +data.proprietario.Telefone);
+        .html('Por '+data.proprietario.Nome + " cpf: "+data.proprietario.cpf+" telefone: " +data.proprietario.telefone);
     
 
 
@@ -81,6 +87,7 @@ Imoveis={
 
 
         $(comment).append(endereco);
+        $(comment).append(valor);
         $(comment).append(proprietario);
         $(comment).append(btnEdit);
         $(comment).append(btnSave);
@@ -126,11 +133,29 @@ Imoveis={
 
         var id = $(comment).attr('id').replace('comment-','');
         var endereco = $(comment).children('textarea').val();
+        var valor = $(comment).children('textarea').val();
 
         $.ajax({
             type: "PUT",
             url:"/imovel",
             data:{'endereco':endereco, 'id': id},
+            success : (data)=>{
+                //quando der certo
+                $(comment).children('textarea').prop('disabled',true);
+                $(comment).children('button.edit').show();
+                $(comment).children('button.save').hide();
+
+            },
+            error:() => {
+                console.log("Erro no update : ", error);
+            },
+            dataType:'json'
+        })
+
+        $.ajax({
+            type: "PUT",
+            url:"/imovel",
+            data:{'valor':valor, 'id': id},
             success : (data)=>{
                 //quando der certo
                 $(comment).children('textarea').prop('disabled',true);

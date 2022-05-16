@@ -5,7 +5,7 @@ const Proprietario = require("./model")
 exports.create = (req, res) => {
     console.log("===============Entrando no Create proprietario===============");
 
-    this.createDefault(req.body.Nome, req.body.Cpf, req.body.Telefone).then(proprietario => {
+    this.createDefault(req.body.Nome, req.body.cpf, req.body.telefone).then(proprietario => {
         console.log("req.body.nome= "+req.body.Nome)
         res.send(proprietario)
 
@@ -25,8 +25,8 @@ exports.create = (req, res) => {
          }else{
              return await Proprietario.create({
                 Nome : nome,
-                Cpf : cpf,
-                Telefone : telefone
+                cpf : cpf,
+                telefone : telefone
 
              })
            
