@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+     <title>Criação de comentário</title>
+
+     <script type="text/javascript" src="../javascript/jquery-lib.js"></script>
+     <script type="text/javascript" src="../javascript/post-jquery.js"></script>
+     <link rel="stylesheet" href="../css/style.css">
+  
+    </head>
+
+    <body>
+        
+
+        <div class="nav">
+            <input type="checkbox" id="nav-check">
+            <div class="nav-header">
+              <div class="nav-title">
+                Imobiliária NC
+              </div>
+            </div>
+            <div class="nav-btn">
+              <label for="nav-check">
+                <span></span>
+                <span></span>
+                <span></span>
+              </label>
+            </div>
+            
+            <div class="nav-links">
+              <a href="/" target="_blank">Início</a>
+              <a href="/sobre" target="_blank">Sobre a cidade</a>
+              <a href="/inserir" target="_blank">Inserir proprietário e imóvel</a>
+              <a href="/buscar" target="_blank">Buscar</a>
+        
+            </div>
+          </div>
+ 
+
+
+        <h1>Inserir imóvel:</h1>
+            <form>
+               
+                <br/>
+                <p>Digite o seu nome:</p>
+                <input type="text" id="Nome" name="Nome" value="">
+                <br>
+                <p>Digite o seu cpf:</p>
+                <input type="text" id="cpf" name="cpf" value=""/>
+                <br>
+                <p>Digite o seu telefone:</p>
+                <input type="text" id="telefone" name="telefone" value=""/>
+                <br>
+                <p>Digite o endereço do seu imóvel:</p>
+                <textarea type="text" id="endereco" name="endereco" value="" rows="1" cols="40"></textarea>
+                <br>
+                <p>Digite o valor do imóvel:</p>
+                <textarea type="text" id="valor" name="valor" value="" rows="1" cols="40"></textarea>
+                <br>
+
+                <input type="button" value="Enviar" onclick="Imoveis.add();"/>
+            </form> 
+    
+        
+    
+        </form>
+    </body>
+</html>

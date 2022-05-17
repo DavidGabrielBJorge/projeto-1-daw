@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+     <title>Criação de comentário</title>
+
+     <script type="text/javascript" src="../javascript/jquery-lib.js"></script>
+     <script type="text/javascript" src="../javascript/post-jquery.js"></script>
+     <link rel="stylesheet" href="../css/style.css">
+  
+    </head>
+
+    <body>
+        
+
+        <div class="nav">
+            <input type="checkbox" id="nav-check">
+            <div class="nav-header">
+              <div class="nav-title">
+                Imobiliária NC
+              </div>
+            </div>
+            <div class="nav-btn">
+              <label for="nav-check">
+                <span></span>
+                <span></span>
+                <span></span>
+              </label>
+            </div>
+            
+            <div class="nav-links">
+              <a href="/" target="_blank">Início</a>
+              <a href="/sobre" target="_blank">Sobre a cidade</a>
+              <a href="/inserir" target="_blank">Inserir proprietário e imóvel</a>
+              <a href="/buscar" target="_blank">Buscar</a>
+        
+            </div>
+          </div>
+ 
+       <h1>Procurar imóvel:</h1>
+        <form id="search">
+            <input id="endereco-search" type="text" name="endereco-search" value=""/>
+            <input type="button" value ="Buscar" onclick="Imoveis.findAll()"/>
+
+        </form>
+
+        
+        
+        <section>
+           
+           
+            <div id="comments">
+
+            </div>
+
+        </section>
+            
+        </form>
+    </body>
+</html>

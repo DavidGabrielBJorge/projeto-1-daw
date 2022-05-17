@@ -20,6 +20,18 @@ app.get("/",(req,res)=>{
     res.sendFile(__dirname+"/public/view/index.html")
 })
 
+app.get("/inserir",(req,res)=>{
+    res.sendFile(__dirname+"/public/view/inserir.html")
+})
+app.get("/sobre",(req,res)=>{
+    res.sendFile(__dirname+"/public/view/sobre.html")
+})
+app.get("/buscar",(req,res)=>{
+    res.sendFile(__dirname+"/public/view/buscar.html")
+})
+
+
+
 var server = app.listen(3000, () =>{
     console.log("Servidor rodando na porta : "+ server.address.port+" no host : "+ server.address().address)
 })
