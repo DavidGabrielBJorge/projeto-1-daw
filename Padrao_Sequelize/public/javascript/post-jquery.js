@@ -14,7 +14,7 @@ Imoveis={
         console.log("t.Nome= "+ t.Nome);
         console.log("t.cpf= "+ t.cpf);
         console.log("t.telefone= "+ t.telefone);
-        console.log("t.telefone= "+ t.valor);
+        console.log("t.valor= "+ t.valor);
 
         $.ajax({
             type : 'POST',
@@ -32,12 +32,16 @@ Imoveis={
 
         console.log("====================================Entrou no template====================================");
 
-        var comment = $('<div></div>')
+        
+        var comment = $('<tr></tr>')
         .attr('id','comment-'+data.id)
         .attr('class','comment');
 
-        console.log("data.id: "+data.id);
-        
+     
+        var tdId=$('<td></td>').html(data.id);
+
+        var tdEndereco =$('<td></td>');
+        var tdValor =$('<td></td>');
 
         var endereco = $('<textarea></textarea>')
         .attr('class','endereco')
@@ -49,51 +53,54 @@ Imoveis={
         .attr('disabled',true)
         .html(data.valor);
 
-        console.log("data.endereco: "+data.endereco);
-        console.log("data.proprietario: "+data.proprietario);
-        console.log("data.Nome: "+data.proprietario.Nome);
+        $(tdEndereco).append(endereco);
 
-        var proprietario = $('<p></p>')
-        .attr('class','proprietario')
-        .html('Por '+data.proprietario.Nome + " cpf: "+data.proprietario.cpf+" telefone: " +data.proprietario.telefone);
+        $(tdValor).append(valor);
+
     
+        var tdNome=$('<td></td>').html(data.proprietario.Nome);
+        var tdCpf=$('<td></td>').html(data.proprietario.cpf);
+        var tdTelefone=$('<td></td>').html(data.proprietario.telefone);
 
-
-
-        var dtCreation = new Date(data.createdAt);
-        dtCreation = (dtCreation.getDate() < 10 ? "0" + dtCreation.getDate():dtCreation.getDate())+
-        "/"+((dtCreation.getMonth()+1) < 10 ? "0" + (dtCreation.getMonth()+1) : (dtCreation.getMonth()+1))+
-        "/"+dtCreation.getFullYear();
-
-        var date = $('<span></span>')
-        .attr('class','date')
-        .html(dtCreation);
+       
 
         var btnEdit =$('<button></button>').attr('class','edit').html('Editar');
         var btnSave =$('<button></button>').attr('class','save hidden').html('Salvar');
         var btnRemove =$('<button></button>').attr('class','remove').html('Remover');
 
+
         $(btnEdit).on('click',(event)=>{
-            Imoveis.enableEdit(event.target);
+            Imoveis.enableEdit(data.id);
         });
 
         $(btnSave).on('click',(event)=>{
-            Imoveis.update(event.target);
+            Imoveis.update(data.id);
         })
 
         $(btnRemove).on('click',(event)=>{
-            Imoveis.remove(event.target);
+            Imoveis.remove(data.id);
         })
 
+        var tdBotoes=$('<td></td>');
 
-        $(comment).append(endereco);
-        $(comment).append(valor);
-        $(comment).append(proprietario);
-        $(comment).append(btnEdit);
-        $(comment).append(btnSave);
-        $(comment).append(btnRemove);
+        var divBotoes=$('<div></div>');
+        $(divBotoes).append(btnEdit);
+        $(divBotoes).append(btnSave);
+        $(divBotoes).append(btnRemove);
 
-        $("#comments").append(comment);
+        tdBotoes.append(divBotoes);
+
+
+
+        $(comment).append(tdId);
+        $(comment).append(tdNome);
+        $(comment).append(tdCpf);
+        $(comment).append(tdTelefone);
+        $(comment).append(tdEndereco);
+        $(comment).append(tdValor);
+        $(comment).append(tdBotoes);
+
+        $("#tabela").append(comment);
 
         
     },
@@ -119,11 +126,13 @@ Imoveis={
         })
     },
 
-    enableEdit : (button) =>{
-        var comment = $(button).parent();
+    enableEdit : (id) =>{
+        var comment = $("#comment-" + id);
 
-        $(comment).children('textarea').prop('disabled',false);
-        $(comment).children('button.edit').hide();
+        $(comment).children('td').eq(4).children('textarea').prop('disabled',false);
+        $(comment).children('td').eq(5).children('textarea').prop('disabled',false);
+        $(comment).children('td').children("div").children('button.edit').hide();
+        $(comment).children('td').children("div").children('button.save').show();
         $(comment).children('button.save').show();
 
     },
@@ -133,12 +142,12 @@ Imoveis={
 
         var id = $(comment).attr('id').replace('comment-','');
         var endereco = $(comment).children('textarea').val();
-        var valor = $(comment).children('textarea').val();
+        var valor = $(comment).children('textarea').eq(1).val();
 
         $.ajax({
             type: "PUT",
             url:"/imovel",
-            data:{'endereco':endereco, 'id': id},
+            data:{'endereco':endereco, 'id': id,'valor':valor},
             success : (data)=>{
                 //quando der certo
                 $(comment).children('textarea').prop('disabled',true);
@@ -152,22 +161,7 @@ Imoveis={
             dataType:'json'
         })
 
-        $.ajax({
-            type: "PUT",
-            url:"/imovel",
-            data:{'valor':valor, 'id': id},
-            success : (data)=>{
-                //quando der certo
-                $(comment).children('textarea').prop('disabled',true);
-                $(comment).children('button.edit').show();
-                $(comment).children('button.save').hide();
-
-            },
-            error:() => {
-                console.log("Erro no update : ", error);
-            },
-            dataType:'json'
-        })
+       
 
 
     },
