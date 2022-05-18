@@ -91,7 +91,9 @@ font-family: Tomorrow, sans-serif;
   background-color: #37EBF3; 
   border-style: solid ;
 }
-
+.table{
+  background-color: #37EBF3; 
+}
 @media only screen and (max-width:720px) {
   .carro-gif{
     margin: auto;  /* Magic! */
