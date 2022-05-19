@@ -65,7 +65,7 @@ Imoveis={
        
 
         var btnEdit =$('<button></button>').attr('class','edit').html('Editar');
-        var btnSave =$('<button></button>').attr('class','save hidden').html('Salvar');
+        var btnSave =$('<button></button>').attr('class','save hidden').html('Salvar').hide();
         var btnRemove =$('<button></button>').attr('class','remove').html('Remover');
 
 
@@ -133,16 +133,15 @@ Imoveis={
         $(comment).children('td').eq(5).children('textarea').prop('disabled',false);
         $(comment).children('td').children("div").children('button.edit').hide();
         $(comment).children('td').children("div").children('button.save').show();
-        $(comment).children('button.save').show();
+
 
     },
 
-    update : (button) =>{
-        var comment = $(button).parent();
+    update : (id) =>{
+        var comment = $("#comment-" + id);
 
-        var id = $(comment).attr('id').replace('comment-','');
-        var endereco = $(comment).children('textarea').val();
-        var valor = $(comment).children('textarea').eq(1).val();
+        var endereco = $(comment).children('td').eq(4).children('textarea').val();
+        var valor = $(comment).children('td').eq(5).children('textarea').val();
 
         $.ajax({
             type: "PUT",
@@ -150,9 +149,12 @@ Imoveis={
             data:{'endereco':endereco, 'id': id,'valor':valor},
             success : (data)=>{
                 //quando der certo
-                $(comment).children('textarea').prop('disabled',true);
-                $(comment).children('button.edit').show();
-                $(comment).children('button.save').hide();
+                $(comment).children('td').eq(4).children('textarea').prop('disabled',true);
+                $(comment).children('td').eq(5).children('textarea').prop('disabled',true);
+                $(comment).children('td').children("div").children('button.edit').show();
+                $(comment).children('td').children("div").children('button.save').hide();
+
+
 
             },
             error:() => {
@@ -166,10 +168,9 @@ Imoveis={
 
     },
 
-    remove: (button) =>{
-        var comment = $(button).parent();
+    remove: (id) =>{
+        var comment = $("#comment-" + id);
 
-        var id = $(comment).attr('id').replace('comment-','');
 
         $.ajax({
             type: "DELETE",
