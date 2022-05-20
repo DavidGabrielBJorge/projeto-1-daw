@@ -5,7 +5,7 @@
   }
   
   body {
-    background-color: #FDF500;
+    background-color: #fcee0a;
     margin: 0px;
     font-family: Tomorrow, sans-serif;
   }
@@ -16,6 +16,10 @@
 */
 .footer{
   background-color: #272932
+}
+a{
+  font-family: Tomorrow, sans-serif;
+  color: white;
 }
 /*
 =============================Botao do inserir=============================
@@ -66,12 +70,28 @@
 /*
 =============================STYLE DO CSS=============================
 */
+
 .div-cyberpunk{
   margin: auto;
   display: flex;
   height: 80%;
   width: 80%;
 }
+
+.div-cyberpunk-map{
+  margin: auto;
+  display: flex;
+  height: 80%;
+  width: 80%;
+}
+
+.mapa_cyberpunk{
+  margin: auto;  /* Magic! */
+  border-style: solid;
+  width:800px;
+  height:800px;
+}
+
 
 .carro-gif{
   margin: auto;  /* Magic! */
@@ -88,11 +108,11 @@ font-family: Tomorrow, sans-serif;
   }
 
 .card-body-sobre{
-  background-color: #37EBF3; 
+  background-color: #00f0ff; 
   border-style: solid ;
 }
 .table{
-  background-color: #37EBF3; 
+  background-color: #00f0ff; 
 }
 @media only screen and (max-width:720px) {
   .carro-gif{
