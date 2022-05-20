@@ -112,7 +112,7 @@ Imoveis={
             url : '/imovel',
             data: {endereco : $("#endereco-search").val()},
             success : (data) => {
-                $("#comments").empty();
+                $("#tabela").empty();
 
                 for(var imovel of data){   
                     Imoveis.template(imovel);
