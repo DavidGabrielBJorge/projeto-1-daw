@@ -34,24 +34,18 @@
       </nav>
 
  <!--=======================Procurar=======================-->
-       <h1 style="font-family: Tomorrow, sans-serif;">Procurar imóvel:</h1>
+      
        
-         <form id="search">
-            <input id="endereco-search" type="text" name="endereco-search" value=""/>
+       <div class="form_buscar">
+        <h1 style="font-family: Tomorrow, sans-serif;">Procurar imóvel:</h1>
+        <br>
+         <form id="search" style="border-style: solid; "> 
+            <input id="endereco-search" type="text" name="endereco-search" value="" style="width: 90%;"/>
 
-            <input type="button" value ="Buscar" onclick="Imoveis.findAll()"/> 
+            <input type="button" value ="Buscar"   onclick="Imoveis.findAll()"/> 
   
         </form> 
-
-<!--         <nav class="navbar navbar-light bg-light" style="background-color: #fcee0a;">
-          <div class="container-fluid" >
-            <form class="d-flex" >
-              <input id="endereco-search" type="text" name="endereco-search" value="" class="form-control me-2"  placeholder="Search" >
-              <button class="btn btn-outline-success" type="button" value ="Buscar" onclick="Imoveis.findAll()">Search</button>
-            </form>
-          </div>
-        </nav> -->
-
+      </div>
         
 
 <br>
