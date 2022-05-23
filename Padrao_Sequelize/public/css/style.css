@@ -91,7 +91,7 @@ a{
 }
 
 .mapa_cyberpunk{
-  margin: auto;  /* Magic! */
+  margin: auto;  
   border-style: solid;
   width:800px;
   height:800px;
@@ -99,7 +99,7 @@ a{
 
 
 .carro-gif{
-  margin: auto;  /* Magic! */
+  margin: auto;  
   width:500px;
   height:500px;
 }
