@@ -23,7 +23,7 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">
-              <a class="nav-link" href="/inicio">Início</a>
+              <a class="nav-link" href="/">Início</a>
               <a class="nav-link" href="/sobre">Sobre</a>
               <a class="nav-link active" aria-current="page" href="/inserir">Inserir</a>
               <a class="nav-link" href="/buscar">Buscar</a>
@@ -69,6 +69,48 @@
         <span class="btn__content">Inserir</span>
       </button>
     
+        
+      <div class="form_buscar">
+        <h1 style="font-family: Tomorrow, sans-serif;">Procurar imóvel:</h1>
+        <br>
+         <form id="search" > 
+            <input id="endereco-search" type="text" name="endereco-search" value="" style="width: 80%;"/>
+
+            <input type="button" value ="Buscar" style="background-color: #ff003c; border-style: 5px solid;"  onclick="Imoveis.findAll()"/> 
+  
+        </form> 
+      </div>
+        
+
+<br>
+ <!--=======================Tabela=======================-->        
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Nome</th>
+              <th scope="col">CPF</th>
+              <th scope="col">Telefone</th>
+              <th scope="col">Endereço</th>
+              <th scope="col">Preço</th>
+              <th scope="col">Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tabela">
+           
+           
+           
+          </tbody>
+        </table>
+
+        <section>
+           
+           
+            <div id="comments">
+
+            </div>
+
+        </section>
         
     <!--=======================FOOTER=======================-->
 
