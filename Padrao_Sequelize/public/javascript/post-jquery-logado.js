@@ -62,14 +62,43 @@ Imoveis={
         var tdCpf=$('<td></td>').html(data.proprietario.cpf);
         var tdTelefone=$('<td></td>').html(data.proprietario.telefone);
 
-    
+       
+
+        var btnEdit =$('<button></button>').attr('class','edit').html('Editar');
+        var btnSave =$('<button></button>').attr('class','save hidden').html('Salvar').hide();
+        var btnRemove =$('<button></button>').attr('class','remove').html('Remover');
+
+
+        $(btnEdit).on('click',(event)=>{
+            Imoveis.enableEdit(data.id);
+        });
+
+        $(btnSave).on('click',(event)=>{
+            Imoveis.update(data.id);
+        })
+
+        $(btnRemove).on('click',(event)=>{
+            Imoveis.remove(data.id);
+        })
+
+        var tdBotoes=$('<td></td>');
+
+        var divBotoes=$('<div></div>');
+        $(divBotoes).append(btnEdit);
+        $(divBotoes).append(btnSave);
+        $(divBotoes).append(btnRemove);
+
+        tdBotoes.append(divBotoes);
+
+
+
         $(comment).append(tdId);
         $(comment).append(tdNome);
         $(comment).append(tdCpf);
         $(comment).append(tdTelefone);
         $(comment).append(tdEndereco);
         $(comment).append(tdValor);
-     
+        $(comment).append(tdBotoes);
 
         $("#tabela").append(comment);
 

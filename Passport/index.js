@@ -2,6 +2,20 @@ const express = require('express')
 const exphbs = require('express-handlebars');
 const session = require('express-session');
 
+/*
+ARQUIVO .ENV 
+
+DB_NAME = 'aula2'
+DB_HOST = 'localhost'
+DB_USER = 'postgres'
+DB_PORT = 5432
+DB_PASS = 'admin'
+DB_DIALECT = 'postgres'
+SECRET = 'segredo',
+SESSION_NAME = 'minhasecao'
+SESSION_TIME = '6000'
+
+*/
 const LocalPass = require('./api/configs/passport');
 const User = require('./api/user/controller');
 
