@@ -1,5 +1,5 @@
 const httpStatus = require('http-status')
-const User = require("./model")
+const Usuario = require("./model")
 const bcrypt = require('bcrypt');
 const passport = require('passport');
 const { username } = require('../configs/dbconfig');
@@ -9,13 +9,13 @@ exports.create = async (req, res) => {
     let pass = await bcrypt.hash(req.body.password, 10);
 
     try {
-        let user = await User.create({
+        let usuario = await Usuario.create({
             name: req.body.name,
-            email: req.body.email,
+            matricula: req.body.matricula,
             login: req.body.login,
             password: pass
         });
-        res.send(user);
+        res.send(usuario);
     } catch (err) {
         console.log(err);
     }
@@ -25,16 +25,16 @@ exports.login = async (req, res) => {
 
     try {
 
-        let user = await User.findOne({
+        let usuario = await Usuario.findOne({
             where: { login: req.body.login }
         });
 
-        if (user) {
-            bcrypt.compare(req.body.password, user.password, function (err, result) {
+        if (usuario) {
+            bcrypt.compare(req.body.password, usuario.password, function (err, result) {
                 if (result) {
 
-                    req.session.user = user.id //insere o id do usuário na sessão
-                    res.json(user);
+                    req.session.usuario = usuario.id //insere o id do usuário na sessão
+                    res.json(usuario);
 
                 } else {
                     res.status(httpStatus.UNAUTHORIZED);
@@ -54,31 +54,31 @@ exports.login = async (req, res) => {
 
 exports.findAll = async (req, res) => {
     try {
-        let users = await User.findAll();
-        res.send(users);
+        let usuarios = await Usuario.findAll();
+        res.send(usuarios);
     } catch (err) {
         res.status(err.status).end(err.message);
     }
 }
 
-exports.findUser = async (username) => {
+exports.findUser = async (nomeUsuario) => {
     try {
-        let user = await User.findOne({
-            where: { login: username }
+        let usuario = await Usuario.findOne({
+            where: { login: nomeUsuario }
         });
-        return user;
+        return usuario;
     } catch (err) {
         console.log(err.message);
     }
     return null;
 }
 
-exports.validPassword = (password, user) => {
+exports.validPassword = (password, usuario) => {
 
-    return bcrypt.compareSync(password, user.password);
+    return bcrypt.compareSync(password, usuario.password);
 }
 
 exports.findById = async (id) => {
 
-    return User.findByPk(id);
+    return Usuario.findByPk(id);
 }

@@ -28,7 +28,11 @@ const app = express();
 //Carrega o sequelize e faz a sincronização com o BD
 const db = require('./api/configs/sequelize');
 
-db.sync();
+//db.sync();
+
+ db.sequelize.sync({force: true}).then(()=>{
+    console.log("Deu certo a criação do banco")
+}) 
 
 //Esta função realiza as configurações do passport
 LocalPass.configuration();

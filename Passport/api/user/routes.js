@@ -3,9 +3,9 @@ module.exports = (app) => {
     const controller = require('./controller')
 
     //Criar um novo perfil de usuário
-    app.post('/user', controller.create)
+    app.post('/usuario', controller.create)
 
     //Busca todos os perfis de usuário
-    app.get('/user', controller.findAll)
+    app.get('/usuario', controller.findAll)
 
 }
