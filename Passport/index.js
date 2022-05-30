@@ -44,9 +44,11 @@ const User = require('./api/user/controller');
 
 require('dotenv').config();
 
+
 //Inicialização do express
 const app = express();
 
+app.use(express.static('public'))
 
 //Carrega o sequelize e faz a sincronização com o BD
 const db = require('./api/configs/sequelize');
