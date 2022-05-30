@@ -16,6 +16,29 @@ SESSION_NAME = 'minhasecao'
 SESSION_TIME = '6000'
 
 */
+
+
+/*
+TESTAR NO POSTMAN
+
+{
+    "name" : "admin",
+    "matricula" : "987654321-A",
+    "login" : "admin",
+    "password":"123"
+}
+
+ {
+        "id": 1,
+        "name": "admin",
+        "matricula": "987654321-A",
+        "login": "admin",
+        "password": "$2b$10$swyFGU74.EcobNjSIjrTduk7OtzjoMfqOJBSzrnxxgD7STAAqXZ.6",
+        "createdAt": "2022-05-30T16:11:49.207Z",
+        "updatedAt": "2022-05-30T16:11:49.207Z"
+    }
+*/
+
 const LocalPass = require('./api/configs/passport');
 const User = require('./api/user/controller');
 
@@ -28,12 +51,12 @@ const app = express();
 //Carrega o sequelize e faz a sincronização com o BD
 const db = require('./api/configs/sequelize');
 
-//db.sync();
-
+db.sync();
+/*
  db.sequelize.sync({force: true}).then(()=>{
     console.log("Deu certo a criação do banco")
 }) 
-
+*/
 //Esta função realiza as configurações do passport
 LocalPass.configuration();
 

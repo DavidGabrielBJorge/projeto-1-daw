@@ -4,6 +4,13 @@ const bcrypt = require('bcrypt');
 const passport = require('passport');
 const { username } = require('../configs/dbconfig');
 
+
+
+/*
+=============================================================================
+Função para criar o usuário
+=============================================================================
+*/
 exports.create = async (req, res) => {
 
     let pass = await bcrypt.hash(req.body.password, 10);
@@ -21,6 +28,13 @@ exports.create = async (req, res) => {
     }
 }
 
+
+/*
+=============================================================================
+Função para fazer o login utilizando o "login" como parametro, além disso analisa os dados que foram 
+inseridos no login
+=============================================================================
+*/
 exports.login = async (req, res) => {
 
     try {
@@ -52,6 +66,11 @@ exports.login = async (req, res) => {
 
 }
 
+/*
+=============================================================================
+Função para mostrar todos  os usuários inseridos no sistema
+=============================================================================
+*/
 exports.findAll = async (req, res) => {
     try {
         let usuarios = await Usuario.findAll();
@@ -61,6 +80,12 @@ exports.findAll = async (req, res) => {
     }
 }
 
+
+/*
+=============================================================================
+Função para mostrar um usuário utilizanddo como parametro o login
+=============================================================================
+*/
 exports.findUser = async (nomeUsuario) => {
     try {
         let usuario = await Usuario.findOne({
@@ -73,12 +98,61 @@ exports.findUser = async (nomeUsuario) => {
     return null;
 }
 
+/*
+=============================================================================
+Função para comparar a senha quando o usuário tenta fazer o login
+=============================================================================
+*/
 exports.validPassword = (password, usuario) => {
 
     return bcrypt.compareSync(password, usuario.password);
 }
 
+/*
+=============================================================================
+Função para mostrar um usuário utilizando como parametro a chave primária do usuário, no caso o "id"
+=============================================================================
+*/
 exports.findById = async (id) => {
 
     return Usuario.findByPk(id);
+}
+
+/*
+=============================================================================
+Função para remover o usuário, sendo seu parametro o  id do usuário que deve ser deletado
+=============================================================================
+*/
+exports.remove=(req,res)=>{
+
+    Usuario.destroy({
+        where:{
+            id : req.body.id
+        }
+    }).then((affectedRows)=>{
+        res.send({'message':'ok','affectedRows' : affectedRows})
+    })
+}
+
+/*
+=============================================================================
+Função para alterar um usuário específico usando o id como parametro
+=============================================================================
+*/
+exports.update =(req,res)=>{
+    Usuario.update(
+        {
+            name: req.body.name,
+            matricula: req.body.matricula,
+            login: req.body.login,
+            password: pass
+        },
+        {
+            where : {
+                id:req.body.id
+            }
+        }
+    ).then(()=>{
+        res.send({'mensagem' : 'ok'});
+    })
 }
