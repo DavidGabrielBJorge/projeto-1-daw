@@ -89,11 +89,11 @@ app.get('/', (req, res) => {
 //Rota de login da aplicação
 app.post('/login', LocalPass.passport.authenticate('local', {
     successRedirect: 'http://localhost:3000/inserir',
-    failureRedirect: '/error'
+    failureRedirect: '/erro'
 }));
 
-app.get('/error', (req, res) => {
-    res.send("Deu ruim!")
+app.get('/erro', (req, res) => {
+    res.sendFile(__dirname+"/views/erro.html");
 })
 
 
