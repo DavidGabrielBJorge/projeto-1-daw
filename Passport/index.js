@@ -80,15 +80,10 @@ app.use(express.urlencoded({
     extended: true
 }));
 
-//Configuração do handlebars
-app.engine('handlebars', exphbs({
-    defaultLayout: 'main'
-}));
-app.set('view engine', 'handlebars');
 
 //Rota raiz da aplicação
 app.get('/', (req, res) => {
-    res.render('login')
+    res.sendFile(__dirname+"/views/index.html");
 })
 
 //Rota de login da aplicação
