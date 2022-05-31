@@ -6,8 +6,20 @@ const { username } = require("../configs/database")
 const {Op} = db.Sequelize
 const status = require("http-status")
 
-exports.create = async (req, res) => {
+/*
+TESTAR NO POSTMAN
+{
+	"Nome": "David",
+	"cpf":"12233344411",
+	"telefone":"5512345678",
+    "endereco":"",
+    "valor":10
+}
+   
+*/
 
+
+exports.create = async (req, res) => {
     try{
         
     let proprietario = await ProprietarioController.createDefault(req.body.Nome, req.body.cpf, req.body.telefone, req.body.valor);
@@ -45,6 +57,12 @@ exports.create = async (req, res) => {
 }
 
 exports.findAll = (req, res) => {
+    Imovel.findAll().then(imoveis => {
+        res.send(imoveis)
+    })
+}
+/*
+exports.findAll = (req, res) => {
     console.log("===============Entrando no findAll imovel===============");
     Imovel.findAll({include:Proprietario,where : {endereco : {[Op.iLike] : '%' + req.query.endereco + '%' }}, order:['createdAt']}).then(imoveis => {
        console.log(imoveis);
@@ -53,7 +71,7 @@ exports.findAll = (req, res) => {
     console.log("===============Saindo no findAll imovel===============");
     })
 }
-
+*/
 
 exports.update =(req,res)=>{
     Imovel.update(

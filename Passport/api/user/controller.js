@@ -9,23 +9,48 @@ const { username } = require('../configs/dbconfig');
 /*
 =============================================================================
 Função para criar o usuário
+
+
+{
+    "name" : "testedousuario",
+    "matricula" : "987654321-A",
+    "login" : "lordesupremo-5",
+    "password":"Mau3456"
+}
+
+https://regex101.com/
+https://www.w3resource.com/javascript/form/letters-numbers-field.php
 =============================================================================
 */
 exports.create = async (req, res) => {
 
     let pass = await bcrypt.hash(req.body.password, 10);
 
-    try {
-        let usuario = await Usuario.create({
-            name: req.body.name,
-            matricula: req.body.matricula,
-            login: req.body.login,
-            password: pass
-        });
-        res.send(usuario);
-    } catch (err) {
-        console.log(err);
+    var nome=/[a-zA-Z]/g;
+    var validarMatricula=/[^a-zA-Z0-9\-\/]/;
+    var validarLogin=/[^a-zA-Z0-9\-\/]/;
+    var validarPassword=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+ 
+
+    if(req.body.name.match(nome) && (!req.body.matricula.match(validarMatricula)) && (!req.body.login.match(validarLogin)) && req.body.password.match(validarPassword) ){
+        try {
+            let usuario = await Usuario.create({
+                name: req.body.name,
+                matricula: req.body.matricula,
+                login: req.body.login,
+                password: pass
+            });
+            res.send(usuario);
+        } catch (err) {
+            console.log(err);
+        }
     }
+    else{
+        res.status(httpStatus.UNAUTHORIZED);
+        res.send({'mensagem' : 'Erro em um dos campos, no nome deve conter apenas letras, na matricula e no login não é permitido caracteres especiais com exceção do - e a senha deve ter entre 6 e 20  caracteres com um número, uma letra maiúscula e uma letra minuscúla'});
+
+    }
+   
 }
 
 
