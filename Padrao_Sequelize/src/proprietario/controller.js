@@ -34,8 +34,10 @@ exports.create = (req, res) => {
     var numeroTelefone =/^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
     var nome=/[a-zA-Z]/g;
     var numeroCpf=/[0-9]{11}/g;
+    var espacoBranco=/([^\s]*)/;
 
-    if(req.body.telefone.match(numeroTelefone) && req.body.Nome.match(nome) && req.body.cpf.match(numeroCpf))
+
+    if(req.body.Nome.match((espacoBranco)) && req.body.telefone.match(espacoBranco) && req.body.cpf.match(espacoBranco) && req.body.telefone.match(numeroTelefone) && req.body.Nome.match(nome) && req.body.cpf.match(numeroCpf))
     {
         this.createDefault(req.body.Nome, req.body.cpf, req.body.telefone).then(proprietario => {
             console.log("req.body.nome= "+req.body.Nome)
@@ -45,7 +47,7 @@ exports.create = (req, res) => {
         })  
     }
     else{
-        res.send({'mensagem' : 'Erro em um dos campos, deve conter apenas palavras no nome, o CPF deve ter no mínimo 11 números e o número de telefone deve ser no formato: +XX XXXX-XXXX'});
+        res.send({'mensagem' : 'Erro em um dos campos, deve conter apenas palavras no nome, o CPF deve ter no mínimo 11 números e o número de telefone deve ser no formato: +XX XXXX-XXXX, TODOS OS CAMPOS DEVEM SER PREENCHIDOS'});
 
     }
 

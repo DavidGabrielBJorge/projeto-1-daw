@@ -28,11 +28,13 @@ exports.create = async (req, res) => {
 
     var nome=/[a-zA-Z]/g;
     var validarMatricula=/[^a-zA-Z0-9\-\/]/;
-    var validarLogin=/[^a-zA-Z0-9\-\/]/;
+    var validarLogin=/[^a-zA-Z0-9\-\/]/; //impede a entrada de caracteres especiais com a exeção do -,porém permite a entrada de null
+   
     var validarPassword=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+    var espacoBranco=/([^\s]*)/;
  
 
-    if(req.body.name.match(nome) && (!req.body.matricula.match(validarMatricula)) && (!req.body.login.match(validarLogin)) && req.body.password.match(validarPassword) ){
+    if(req.body.name.match(espacoBranco) && req.body.password.match(espacoBranco)  && req.body.name.match(nome) && (!req.body.matricula.match(validarMatricula)) && (!req.body.login.match(validarLogin)) && req.body.password.match(validarPassword) ){
         try {
             let usuario = await Usuario.create({
                 name: req.body.name,
