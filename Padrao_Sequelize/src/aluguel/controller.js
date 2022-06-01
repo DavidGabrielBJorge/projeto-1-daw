@@ -9,11 +9,10 @@ const {Op} = db.Sequelize
 const status = require("http-status")
 
 exports.create = async (req, res) => {
-    console.log("req.body.valor: "+req.body.valor);
 
         try{
             let proprietario = await ProprietarioController.createDefault(req.body.Nome, req.body.cpf, req.body.telefone);
-            let imovel = await ImovelController.create(req.body.valor,req.body.endereco)
+            let imovel = await ImovelController.createDefault(req.body.endereco,req.body.valor)
             console.log("===============Entrando no Create imovel===============");
             console.log("req.body.Nome: "+req.body.Nome);
             console.log("req.body.cpf: "+req.body.cpf);
@@ -24,6 +23,7 @@ exports.create = async (req, res) => {
 
 
                 let aluguel = await Aluguel.create({
+                    
                     preco: req.body.preco,
                     proprietarioId : proprietario.id,
                     imovelId: imovel.id
@@ -31,10 +31,17 @@ exports.create = async (req, res) => {
                 },
                 {
                     include: [{
-                      association: Aluguel.Proprietario,
+                      association: Aluguel.Proprietario
+                    
+                    }]
+                  },
+                  {
+                    include: [{
                       association: Aluguel.Imovel
+                    
                     }]
                   }
+
                   )
                 
             

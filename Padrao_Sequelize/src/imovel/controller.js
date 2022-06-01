@@ -41,8 +41,8 @@ exports.create = async (req, res) => {
 
 
                 let imovel = await Imovel.create({
-                    valor: req.body.valor,
                     endereco : req.body.endereco,
+                    valor: req.body.valor,
                     proprietarioId : proprietario.id
                     
                 },
@@ -70,9 +70,31 @@ exports.create = async (req, res) => {
         res.send({'mensagem' : 'Erro em um dos campos, deve conter apenas palavras no nome, o CPF deve ter no mínimo 11 números e o número de telefone deve ser no formato: +XX XXXX-XXXX, TODOS OS CAMPOS DEVEM SER PREENCHIDOS'});
 
     }
-
-
 }
+
+
+exports.createDefault = async (endereco, valor) =>{
+ 
+    try{
+       console.log("===============Entrando no Create Default proprietario===============");
+       
+            return await Imovel.create({
+               endereco : endereco,
+               valor : valor
+              
+            })
+        
+
+    }catch(err){
+        console.log("Erro " + err)
+    }
+    console.log("===============Saindo no Create Default proprietario===============");
+}
+
+
+
+
+
 
 exports.findAll = (req, res) => {
     Imovel.findAll().then(imoveis => {
