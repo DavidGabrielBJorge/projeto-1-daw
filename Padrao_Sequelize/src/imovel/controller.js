@@ -37,7 +37,7 @@ exports.create = async (req, res) => {
             console.log("req.body.Nome: "+req.body.Nome);
             console.log("req.body.cpf: "+req.body.cpf);
             console.log("req.body.telefone: "+req.body.telefone);
-            console.log("req.body.telefone: "+req.body.valor);
+            console.log("req.body.valor: "+req.body.valor);
 
 
                 let imovel = await Imovel.create({
@@ -56,10 +56,8 @@ exports.create = async (req, res) => {
             
                 await imovel.reload();
             
-          
-        
-            
             res.json(imovel);
+
             console.log("===============Saindo no Create imovel===============");
             }catch(err){
                 
@@ -73,11 +71,6 @@ exports.create = async (req, res) => {
 
     }
 
-
-
-
-
-  
 
 }
 
