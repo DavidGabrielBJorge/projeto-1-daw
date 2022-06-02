@@ -5,16 +5,26 @@ const ProprietarioController = require("./../proprietario/controller")
 const { username } = require("../configs/database")
 const {Op} = db.Sequelize
 const status = require("http-status")
+const httpStatus = require('http-status')
 
 /*
 TESTAR NO POSTMAN
+=>CRIAR
 {
 	"Nome": "David",
 	"cpf":"12233344411",
 	"telefone":"5512345678",
-    "endereco":"",
+    "endereco":"centro",
     "valor":10
 }
+
+=>ALTERAR
+{
+    "id":1,
+    "endereco":"Rua de teste",
+    "valor":800
+}
+
    
 */
 
@@ -24,11 +34,11 @@ exports.create = async (req, res) => {
     var nome=/[a-zA-Z]/g;
     var numeroCpf=/[0-9]{11}/g;
     var validarValor=/^\d{0,2}(\.\d{0,2}){0,1}$/;
-    var espacoBranco=/([^\s]*)/;
+    var espacoBranco=/^(?!\s*$).+/;
 
     console.log("req.body.valor: "+req.body.valor);
 
-    if(req.body.Nome.match((espacoBranco)) && req.body.telefone.match(espacoBranco) && req.body.cpf.match(espacoBranco) && req.body.telefone.match(numeroTelefone) && req.body.Nome.match(nome) &&  req.body.cpf.match(numeroCpf) && req.body.Nome.match() )
+    if(req.body.endereco.match(espacoBranco) && req.body.Nome.match(espacoBranco) && req.body.telefone.match(espacoBranco) && req.body.cpf.match(espacoBranco) && req.body.telefone.match(numeroTelefone) && req.body.Nome.match(nome) &&  req.body.cpf.match(numeroCpf) && req.body.Nome.match() )
     {
         try{
             let proprietario = await ProprietarioController.createDefault(req.body.Nome, req.body.cpf, req.body.telefone);
@@ -67,6 +77,7 @@ exports.create = async (req, res) => {
             }
     }
     else{
+        res.status(httpStatus.UNAUTHORIZED);
         res.send({'mensagem' : 'Erro em um dos campos, deve conter apenas palavras no nome, o CPF deve ter no mínimo 11 números e o número de telefone deve ser no formato: +XX XXXX-XXXX, TODOS OS CAMPOS DEVEM SER PREENCHIDOS'});
 
     }
@@ -114,19 +125,36 @@ exports.findAll = (req, res) => {
 */
 
 exports.update =(req,res)=>{
-    Imovel.update(
-        {
-            endereco: req.body.endereco,
-            valor: req.body.valor
-        },
-        {
-            where : {
-                id:req.body.id
+
+    var numeroTelefone =/^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
+    var nome=/[a-zA-Z]/g;
+    var numeroCpf=/[0-9]{11}/g;
+    var validarValor=/^\d{0,2}(\.\d{0,2}){0,1}$/;
+    var espacoBranco=/^(?!\s*$).+/;
+
+    if(req.body.endereco.match(espacoBranco) )
+    {
+        Imovel.update(
+            {
+                endereco: req.body.endereco,
+                valor: req.body.valor
+            },
+            {
+                where : {
+                    id:req.body.id
+                }
             }
-        }
-    ).then(()=>{
-        res.send({'mensagem' : 'ok'});
-    })
+        ).then(()=>{
+            res.send({'mensagem' : 'ok'});
+        })
+    }
+    else{
+        res.status(httpStatus.UNAUTHORIZED);
+        res.send({'mensagem' : 'Erro em um dos campos, deve conter apenas palavras no nome, o CPF deve ter no mínimo 11 números e o número de telefone deve ser no formato: +XX XXXX-XXXX, TODOS OS CAMPOS DEVEM SER PREENCHIDOS'});
+
+    }
+
+    
 }
 
 exports.remove=(req,res)=>{

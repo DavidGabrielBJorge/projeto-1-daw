@@ -10,12 +10,22 @@ const { username } = require('../configs/dbconfig');
 =============================================================================
 Função para criar o usuário
 
-
+=>Criar
 {
     "name" : "testedousuario",
     "matricula" : "987654321-A",
     "login" : "lordesupremo-5",
     "password":"Mau3456"
+}
+
+
+=>Alterar
+{
+    "id": 10,
+    "name" : "testedousuarioalterado",
+    "matricula" : "987654321-A",
+    "login" : "lordesupremo-59",
+    "password":"Maualterado1"
 }
 
 https://regex101.com/
@@ -29,12 +39,11 @@ exports.create = async (req, res) => {
     var nome=/[a-zA-Z]/g;
     var validarMatricula=/[^a-zA-Z0-9\-\/]/;
     var validarLogin=/[^a-zA-Z0-9\-\/]/; //impede a entrada de caracteres especiais com a exeção do -,porém permite a entrada de null
-   
     var validarPassword=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
-    var espacoBranco=/([^\s]*)/;
+    var espacoBranco=/^(?!\s*$).+/;
  
 
-    if(req.body.name.match(espacoBranco) && req.body.password.match(espacoBranco)  && req.body.name.match(nome) && (!req.body.matricula.match(validarMatricula)) && (!req.body.login.match(validarLogin)) && req.body.password.match(validarPassword) ){
+    if(req.body.matricula.match(espacoBranco) && req.body.login.match(espacoBranco) && req.body.name.match(espacoBranco) && req.body.password.match(espacoBranco)  && req.body.name.match(nome) && (!req.body.matricula.match(validarMatricula)) && (!req.body.login.match(validarLogin)) && req.body.password.match(validarPassword) ){
         try {
             let usuario = await Usuario.create({
                 name: req.body.name,
@@ -166,20 +175,43 @@ exports.remove=(req,res)=>{
 Função para alterar um usuário específico usando o id como parametro
 =============================================================================
 */
-exports.update =(req,res)=>{
-    Usuario.update(
-        {
-            name: req.body.name,
-            matricula: req.body.matricula,
-            login: req.body.login,
-            password: pass
-        },
-        {
-            where : {
-                id:req.body.id
-            }
+exports.update = async(req,res)=>{
+
+    var nome=/[a-zA-Z]/g;
+    var validarMatricula=/[^a-zA-Z0-9\-\/]/;
+    var validarLogin=/[^a-zA-Z0-9\-\/]/; //impede a entrada de caracteres especiais com a exeção do -,porém permite a entrada de null
+    var validarPassword=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
+    var espacoBranco=/^(?!\s*$).+/;
+
+    let pass = await bcrypt.hash(req.body.password, 10);
+
+    if(req.body.matricula.match(espacoBranco) && req.body.login.match(espacoBranco) && req.body.name.match(espacoBranco) && req.body.password.match(espacoBranco)  && req.body.name.match(nome) && (!req.body.matricula.match(validarMatricula)) && (!req.body.login.match(validarLogin)) && req.body.password.match(validarPassword) ){
+        try {
+            Usuario.update(
+                {
+                    name: req.body.name,
+                    matricula: req.body.matricula,
+                    login: req.body.login,
+                    password: pass
+                },
+                {
+                    where : {
+                        id:req.body.id
+                    }
+                }
+            ).then(()=>{
+                res.send({'mensagem' : 'ok'});
+            })
+        } catch (err) {
+            console.log(err);
         }
-    ).then(()=>{
-        res.send({'mensagem' : 'ok'});
-    })
+    }
+    else{
+        res.status(httpStatus.UNAUTHORIZED);
+        res.send({'mensagem' : 'Erro em um dos campos, no nome deve conter apenas letras, na matricula e no login não é permitido caracteres especiais com exceção do - e a senha deve ter entre 6 e 20  caracteres com um número, uma letra maiúscula e uma letra minuscúla'});
+
+    }
+
+    
 }
+

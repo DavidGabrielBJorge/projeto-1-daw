@@ -15,7 +15,7 @@ db.sequelize.sync({force: true}).then(()=>{
 
 require('./src/proprietario/routes')(app)
 require('./src/imovel/routes')(app)
-require('./src/aluguel/routes')(app)
+
 
 app.get("/",(req,res)=>{
     res.sendFile(__dirname+"/public/view/index.html")

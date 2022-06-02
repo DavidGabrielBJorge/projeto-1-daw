@@ -1,7 +1,7 @@
 const { username } = require("../configs/database")
 const db=require("./../configs/sequelize")
 const Proprietario = require("./model")
-
+const httpStatus = require('http-status')
 
 /*
 testar no postman
@@ -10,6 +10,14 @@ testar no postman
 	"Nome": "David",
 	"cpf":"12233344411",
 	"telefone":"5512345678"
+}
+
+
+{
+    "id":4,
+	"Nome": "Pereira",
+	"cpf":"12233344455",
+	"telefone":"5512345699"
 }
 
 
@@ -34,7 +42,7 @@ exports.create = (req, res) => {
     var numeroTelefone =/^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
     var nome=/[a-zA-Z]/g;
     var numeroCpf=/[0-9]{11}/g;
-    var espacoBranco=/([^\s]*)/;
+    var espacoBranco=/^(?!\s*$).+/;
 
 
     if(req.body.Nome.match((espacoBranco)) && req.body.telefone.match(espacoBranco) && req.body.cpf.match(espacoBranco) && req.body.telefone.match(numeroTelefone) && req.body.Nome.match(nome) && req.body.cpf.match(numeroCpf))
@@ -47,6 +55,7 @@ exports.create = (req, res) => {
         })  
     }
     else{
+        res.status(httpStatus.UNAUTHORIZED);
         res.send({'mensagem' : 'Erro em um dos campos, deve conter apenas palavras no nome, o CPF deve ter no mínimo 11 números e o número de telefone deve ser no formato: +XX XXXX-XXXX, TODOS OS CAMPOS DEVEM SER PREENCHIDOS'});
 
     }
@@ -110,21 +119,37 @@ exports.remove=(req,res)=>{
 }
 
 exports.update =(req,res)=>{
-    Proprietario.update(
-        {
-            Nome : req.body.nome,
-            cpf : req.body.cpf,
-            telefone : req.body.telefone
 
-        },
-        {
-            where : {
-                id:req.body.id
+    var numeroTelefone =/^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
+    var nome=/[a-zA-Z]/g;
+    var numeroCpf=/[0-9]{11}/g;
+    var espacoBranco=/^(?!\s*$).+/;
+
+    if(req.body.Nome.match((espacoBranco)) && req.body.telefone.match(espacoBranco) && req.body.cpf.match(espacoBranco) && req.body.telefone.match(numeroTelefone) && req.body.Nome.match(nome) && req.body.cpf.match(numeroCpf))
+    {
+        Proprietario.update(
+            {
+                Nome : req.body.Nome,
+                cpf : req.body.cpf,
+                telefone : req.body.telefone
+    
+            },
+            {
+                where : {
+                    id:req.body.id
+                }
             }
-        }
-    ).then(()=>{
-        res.send({'mensagem' : 'ok'});
-    })
+        ).then(()=>{
+            res.send({'mensagem' : 'ok'});
+        }) 
+    }
+    else{
+        res.status(httpStatus.UNAUTHORIZED);
+        res.send({'mensagem' : 'Erro em um dos campos, deve conter apenas palavras no nome, o CPF deve ter no mínimo 11 números e o número de telefone deve ser no formato: +XX XXXX-XXXX, TODOS OS CAMPOS DEVEM SER PREENCHIDOS'});
+
+    }
+
+    
 }
  
  
