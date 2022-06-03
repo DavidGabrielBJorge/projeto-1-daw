@@ -7,8 +7,8 @@ const { username } = require('../configs/dbconfig');
 
 
 /*
-=============================================================================
 Função para criar o usuário
+http://localhost:3001/usuario
 
 =>Criar
 {
@@ -17,19 +17,22 @@ Função para criar o usuário
     "login" : "lordesupremo-5",
     "password":"Mau3456"
 }
-
-
+===========================================================================
 =>Alterar
 {
-    "id": 10,
+    "id": 1,
     "name" : "testedousuarioalterado",
-    "matricula" : "987654321-A",
+    "matricula" : "987654321-B",
     "login" : "lordesupremo-59",
     "password":"Maualterado1"
 }
+===========================================================================
+=>Deletar
+{
+    "id": 1
+}
 
 https://regex101.com/
-https://www.w3resource.com/javascript/form/letters-numbers-field.php
 =============================================================================
 */
 exports.create = async (req, res) => {

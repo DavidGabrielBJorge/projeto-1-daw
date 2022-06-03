@@ -8,24 +8,44 @@ const status = require("http-status")
 const httpStatus = require('http-status')
 
 /*
-TESTAR NO POSTMAN
+http://localhost:3000/imovel
 =>CRIAR
 {
-	"Nome": "David",
-	"cpf":"12233344411",
-	"telefone":"5512345678",
-    "endereco":"centro",
-    "valor":10
+	"Nome": "Kerry Eurodyne",
+	"cpf":"23334445522",
+	"telefone":"3492345678",
+    "endereco":"Republic WY",
+    "valor":100000
 }
 
+{
+	"Nome": "Kerry Eurodyne",
+	"cpf":"23334445522",
+	"telefone":"3492345678",
+    "endereco":"Congress St",
+    "valor":150000
+}
+
+{
+	"Nome": "Panam Palmer",
+	"cpf":"23334448888",
+	"telefone":"3492345677",
+    "endereco":"El Camino del Mar",
+    "valor":350000
+}
+
+===============================================
 =>ALTERAR
 {
     "id":1,
     "endereco":"Rua de teste",
-    "valor":800
+    "valor":500
 }
-
-   
+===============================================
+=>DELETAR
+{
+    "id":1 
+}
 */
 
 

@@ -19,8 +19,6 @@ SESSION_TIME = '6000'
 
 
 /*
-TESTAR NO POSTMAN
-
 {
     "name" : "admin",
     "matricula" : "987654321-A",

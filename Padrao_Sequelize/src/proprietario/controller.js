@@ -4,34 +4,32 @@ const Proprietario = require("./model")
 const httpStatus = require('http-status')
 
 /*
-testar no postman
+http://localhost:3000/proprietario
 =>CRIAR
+Pessoa 1:
 {
-	"Nome": "David",
+	"Nome": "Alt Cunningham",
 	"cpf":"12233344411",
 	"telefone":"5512345678"
 }
-
-
+Pessoa 2:
 {
-    "id":4,
-	"Nome": "Pereira",
-	"cpf":"12233344455",
-	"telefone":"5512345699"
+	"Nome": "Kerry Eurodyne",
+	"cpf":"23334445522",
+	"telefone":"3492345678"
 }
-
-
-=>DELETAR
+===========================================================================
+=>Alterar
 {
-	"id":1
+    "id":1,
+	"Nome": "Nome alterado",
+	"cpf":"23334445599",
+	"telefone":"3492345100"
 }
-
-=>UPDATE
+===========================================================================
+=>Deletar
 {
-	"id": "1",
-	"Nome": "teste",
-	"cpf":"122.333.444-11",
-	"telefone":"11912233"
+    "id":1
 }
 
 */
