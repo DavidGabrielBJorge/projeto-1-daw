@@ -110,6 +110,12 @@ exports.findAll = (req, res) => {
 Antes de atualizar, faz uma validação dos campos inseridos utilizando regex 
 */
 exports.update =(req,res)=>{
+
+    var validarValor=/^[1-9][\.\d]*(,\d+)?$/;//valida se a pessoa escreveu alguma coisa no campo
+    var espacoBranco=/^(?!\s*$).+/;//valida se a pessoa escreveu apenas números incluindo "."
+
+    if(String(req.body.preco).match(espacoBranco) && String(req.body.preco).match(validarValor) )
+    {
         Aluguel.update(
             {
                 preco: req.body.preco
@@ -123,6 +129,13 @@ exports.update =(req,res)=>{
             res.status(httpStatus.OK);
             res.send({'mensagem' : 'ok'});
         })
+    }
+    else{
+        res.status(httpStatus.UNAUTHORIZED);
+        res.send({'mensagem' : 'Erro em um dos campos, deve conter apenas palavras no nome, o CPF deve ter no mínimo 11 números e o número de telefone deve ser no formato: +XX XXXX-XXXX, TODOS OS CAMPOS DEVEM SER PREENCHIDOS'});
+    }
+
+        
     
 
     

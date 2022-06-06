@@ -13,7 +13,7 @@ db.sequelize.sync({force: true}).then(()=>{
 })
 
 
-require('./src/proprietario/routes')(app)
+require('./src/proprietario/routes')(app)//inclui módulos que estão em arquivos separados
 require('./src/imovel/routes')(app)
 require('./src/aluguel/routes')(app)
 

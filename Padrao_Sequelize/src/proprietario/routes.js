@@ -1,4 +1,6 @@
 module.exports =(app) => {
+
+    //O routes chama uma função com base na URL
     const controller = require("./controller")
 
     //criar um novo usuário

@@ -38,7 +38,6 @@ SESSION_TIME = '6000'
 */
 
 const LocalPass = require('./api/configs/passport');
-const User = require('./api/user/controller');
 
 require('dotenv').config();
 

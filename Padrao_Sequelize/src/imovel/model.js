@@ -32,6 +32,7 @@ Imovel.init({
 },{sequelize})
 
 Imovel.Proprietario = Imovel.belongsTo(Proprietario)
+
 //A associação Imovel.belongsTo(Proprietario) significa que existe um relacionamento Um-para-Um 
 //entre imovel e proprietario, com a chave estrangeira sendo definida no modelo de origem (Imovel).
 

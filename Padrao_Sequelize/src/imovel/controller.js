@@ -53,7 +53,7 @@ exports.create = async (req, res) => {
     var numeroTelefone =/^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;//valida se o número de telefone está no fromato +XX XXXX-XXXX
     var nome=/[a-zA-Z]/g;//valida se a pessoa escreveu o nome apenas com palavras, impede a pessoa de escrever números
     var numeroCpf=/[0-9]{11}/g;//valida se a pessoa escreveu apenas números e com tamanho 11
-    var validarValor=/^[1-9][\.\d]*(,\d+)?$/;//valida se a pessoa escreveu alguma coisa no campo
+    var validarValor=/^[1-9][\.\d]*(,\d+)?$/;//valida se a pessoa escreveu um número 
     var espacoBranco=/^(?!\s*$).+/;//valida se a pessoa escreveu apenas números incluindo "."
 
     console.log("req.body.valor: "+req.body.valor);

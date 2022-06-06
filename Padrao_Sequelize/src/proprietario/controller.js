@@ -39,7 +39,7 @@ Pessoa 2:
 ==============================================================================================================================================
 O Sequelize fornece vários métodos para auxiliar na consulta de dados em seu banco de dados. Alguns desses
 métodos são o CRUD, para que isso ocorra deve inserir algumas palavras dedicadas, create, findOne,update,
-e destroy, dessa forma o seuqlize ficará responsável pela lógica de criar, procurar, deletar e atualizar no
+e destroy, dessa forma o sequelize ficará responsável pela lógica de criar, procurar, deletar e atualizar no
 banco de dados.
 ==============================================================================================================================================
 */

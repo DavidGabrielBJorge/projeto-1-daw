@@ -9,9 +9,10 @@ module.exports = (app) => {
     app.get('/usuario', controller.findAll)
 
     //Atualiza um usuário
-    app.put('/usuario',controller.update);
+    app.put('/usuario',controller.update)
 
     //Remove um usuário
     app.delete('/usuario',controller.remove)
+
 
 }
