@@ -5,7 +5,13 @@ const {Model, DataTypes} = db.Sequelize
 const sequelize = db.sequelize
 
 class Proprietario extends Model{}
-
+/*
+Cria uma tabela chamada proprietarios com os seguintes campos
+id
+Nome
+cpf 
+telefone
+*/
 Proprietario.init({
     id:{
         type:DataTypes.INTEGER,

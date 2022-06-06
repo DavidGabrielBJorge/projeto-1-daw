@@ -50,17 +50,18 @@ http://localhost:3000/imovel
 
 
 exports.create = async (req, res) => {
-    var numeroTelefone =/^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
-    var nome=/[a-zA-Z]/g;
-    var numeroCpf=/[0-9]{11}/g;
-    var validarValor=/^\d{0,2}(\.\d{0,2}){0,1}$/;
-    var espacoBranco=/^(?!\s*$).+/;
+    var numeroTelefone =/^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;//valida se o número de telefone está no fromato +XX XXXX-XXXX
+    var nome=/[a-zA-Z]/g;//valida se a pessoa escreveu o nome apenas com palavras, impede a pessoa de escrever números
+    var numeroCpf=/[0-9]{11}/g;//valida se a pessoa escreveu apenas números e com tamanho 11
+    var validarValor=/^[1-9][\.\d]*(,\d+)?$/;//valida se a pessoa escreveu alguma coisa no campo
+    var espacoBranco=/^(?!\s*$).+/;//valida se a pessoa escreveu apenas números incluindo "."
 
     console.log("req.body.valor: "+req.body.valor);
 
-    if(req.body.endereco.match(espacoBranco) && req.body.Nome.match(espacoBranco) && req.body.telefone.match(espacoBranco) && req.body.cpf.match(espacoBranco) && req.body.telefone.match(numeroTelefone) && req.body.Nome.match(nome) &&  req.body.cpf.match(numeroCpf) && req.body.Nome.match() )
+    if(String(req.body.valor).match(espacoBranco) && req.body.endereco.match(espacoBranco) && req.body.Nome.match(espacoBranco) && req.body.telefone.match(espacoBranco) && req.body.cpf.match(espacoBranco) && req.body.telefone.match(numeroTelefone) && req.body.Nome.match(nome) &&  req.body.cpf.match(numeroCpf) && String(req.body.valor).match(validarValor))
     {
         try{
+            //vai criar primeiro o proprietário para depois criar o imóvel
             let proprietario = await ProprietarioController.createDefault(req.body.Nome, req.body.cpf, req.body.telefone);
         
             console.log("===============Entrando no Create imovel===============");
@@ -104,16 +105,25 @@ exports.create = async (req, res) => {
 }
 
 
-exports.createDefault = async (endereco, valor) =>{
- 
+
+exports.createDefault = async (nome,cpf,telefone, valor, endereco) =>{
+
     try{
        console.log("===============Entrando no Create Default proprietario===============");
        
+       let proprietario = await ProprietarioController.createDefault(nome,cpf,telefone);
+        
+
             return await Imovel.create({
                endereco : endereco,
-               valor : valor
-              
-            })
+               valor : valor,
+               proprietarioId : proprietario.id
+            },
+            {
+                include: [{
+                  association: Imovel.Proprietario
+                }]
+              })
         
 
     }catch(err){
@@ -126,15 +136,21 @@ exports.createDefault = async (endereco, valor) =>{
 
 
 
-
+/*
+Função para mostrar todos os imóveis do banco
+*/
 exports.findAll = (req, res) => {
     Imovel.findAll().then(imoveis => {
         res.send(imoveis)
     })
 }
+
+
 /*
 exports.findAll = (req, res) => {
     console.log("===============Entrando no findAll imovel===============");
+    //utiliza como referência o endereço para mostrar os imóveis, ele cria uma query e ordena de acordo com a data da criação.
+    //o sequelize possui o símbolo Op. para auxiliar no filtro de consulta
     Imovel.findAll({include:Proprietario,where : {endereco : {[Op.iLike] : '%' + req.query.endereco + '%' }}, order:['createdAt']}).then(imoveis => {
        console.log(imoveis);
        
@@ -144,15 +160,18 @@ exports.findAll = (req, res) => {
 }
 */
 
+
+/*
+Antes de atualizar, faz uma validação dos campos inseridos utilizando regex 
+*/
 exports.update =(req,res)=>{
 
-    var numeroTelefone =/^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
-    var nome=/[a-zA-Z]/g;
-    var numeroCpf=/[0-9]{11}/g;
-    var validarValor=/^\d{0,2}(\.\d{0,2}){0,1}$/;
-    var espacoBranco=/^(?!\s*$).+/;
 
-    if(req.body.endereco.match(espacoBranco) )
+    var espacoBranco=/^(?!\s*$).+/;//valida se a pessoa escreveu apenas números incluindo "."
+    var validarValor=/^[1-9][\.\d]*(,\d+)?$/;//valida se a pessoa escreveu alguma coisa no campo
+
+
+    if(String(req.body.valor).match(espacoBranco) && req.body.endereco.match(espacoBranco) && String(req.body.valor).match(validarValor))
     {
         Imovel.update(
             {
@@ -165,6 +184,7 @@ exports.update =(req,res)=>{
                 }
             }
         ).then(()=>{
+            res.status(httpStatus.OK);
             res.send({'mensagem' : 'ok'});
         })
     }
@@ -177,6 +197,9 @@ exports.update =(req,res)=>{
     
 }
 
+/*
+Função remover um imovel, usando o id como referência
+*/
 exports.remove=(req,res)=>{
 
     Imovel.destroy({
@@ -184,6 +207,7 @@ exports.remove=(req,res)=>{
             id : req.body.id
         }
     }).then((affectedRows)=>{
+        res.status(httpStatus.OK);
         res.send({'message':'ok','affectedRows' : affectedRows})
     })
 }

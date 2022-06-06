@@ -35,15 +35,22 @@ http://localhost:3001/usuario
 https://regex101.com/
 =============================================================================
 */
+
+
+/*
+Função para criar um usuário
+*/
 exports.create = async (req, res) => {
 
     let pass = await bcrypt.hash(req.body.password, 10);
+    //Foi usado a biblioteca bcrypt para encriptar a senha do usuário
+    //Nesse caso está passando a senha e o saltRounds(tipo de criptografia)
 
-    var nome=/[a-zA-Z]/g;
-    var validarMatricula=/[^a-zA-Z0-9\-\/]/;
-    var validarLogin=/[^a-zA-Z0-9\-\/]/; //impede a entrada de caracteres especiais com a exeção do -,porém permite a entrada de null
-    var validarPassword=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;
-    var espacoBranco=/^(?!\s*$).+/;
+    var nome=/[a-zA-Z]/g;//valida se a pessoa escreveu o nome apenas com palavras, impede a pessoa de escrever números
+    var validarMatricula=/[^a-zA-Z0-9\-\/]/;//impede a entrada de caracteres especiais com a exeção do -
+    var validarLogin=/[^a-zA-Z0-9\-\/]/; 
+    var validarPassword=/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/;//Valida se a senha possui entre 6 a 20 caracteres, uma letra maiúscula, uma letra minúscula e um número.
+    var espacoBranco=/^(?!\s*$).+/;//valida se a pessoa inseriu alguma coisa no campo
  
 
     if(req.body.matricula.match(espacoBranco) && req.body.login.match(espacoBranco) && req.body.name.match(espacoBranco) && req.body.password.match(espacoBranco)  && req.body.name.match(nome) && (!req.body.matricula.match(validarMatricula)) && (!req.body.login.match(validarLogin)) && req.body.password.match(validarPassword) ){
@@ -75,9 +82,7 @@ inseridos no login
 =============================================================================
 */
 exports.login = async (req, res) => {
-
     try {
-
         let usuario = await Usuario.findOne({
             where: { login: req.body.login }
         });
@@ -100,7 +105,7 @@ exports.login = async (req, res) => {
         }
 
     } catch (err) {
-
+        console.log(err);
     }
 
 }
@@ -122,7 +127,7 @@ exports.findAll = async (req, res) => {
 
 /*
 =============================================================================
-Função para mostrar um usuário utilizanddo como parametro o login
+Função para mostrar um usuário utilizando como parametro o login
 =============================================================================
 */
 exports.findUser = async (nomeUsuario) => {
